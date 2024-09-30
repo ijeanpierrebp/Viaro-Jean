@@ -1,0 +1,11 @@
+﻿@model AlumnoGrado
+
+<div class="alert alert-danger" role="alert">
+    <h3>¿Estás seguro que deseas eliminar a (@Model.Alumno?.Nombre - @Model.Grado?.Nombre)?</h3>
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

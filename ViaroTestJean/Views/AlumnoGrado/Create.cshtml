@@ -1,0 +1,68 @@
+﻿@model AlumnoGrado
+
+<div class="alert alert-primary" role="alert">
+    <h2>Agregar Alumno a Grado</h2>
+</div>
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Create">
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label for="AlumnoId">Seleccionar Alumno</label>
+            <select asp-for="AlumnoId" class="form-control" asp-items="@(new SelectList(ViewBag.Alumnos, "Id", "Nombre"))">
+                <option value="">Seleccione un alumno...</option>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label for="GradoId">Seleccionar Grado</label>
+            <select asp-for="GradoId" class="form-control" asp-items="@(new SelectList(ViewBag.Grados, "Id", "Nombre"))">
+                <option value="">Seleccione un grado...</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group" id="secciones-container">
+        <div class="col-md-6">
+            <label>Secciones</label>
+            <div class="section-input">
+                <input type="text" class="form-control" placeholder="Ejemplo: Sección A" name="Seccion" />
+                    <button type="button" class="btn btn-danger remove-section">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <button type="button" class="btn btn-secondary" id="add-section">Agregar Sección</button>
+
+    <br /><br />
+
+    <div class="d-flex justify-content-end">
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        document.getElementById('add-section').addEventListener('click', function () {
+            const container = document.getElementById('secciones-container');
+            const newSection = document.createElement('div');
+            newSection.className = 'section-input';
+            newSection.innerHTML = `
+                        <input type="text" class="form-control" placeholder="Ejemplo: Sección B" name="Seccion" />
+                        <button type="button" class="btn btn-danger remove-section">Eliminar</button>                        
+                    `;
+            container.appendChild(newSection);
+        });
+
+        document.getElementById('secciones-container').addEventListener('click', function (event) {
+            if (event.target.classList.contains('remove-section')) {
+                event.target.parentElement.remove();
+            }
+        });
+    </script>
+}

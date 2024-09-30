@@ -1,0 +1,46 @@
+﻿ @model IEnumerable<AlumnoGrado>
+
+<h2>Lista de alumnos por grado</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Alumno</th>
+            <th>Grado</th>
+            <th>Secciones</th>
+            <th colspan="2">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Alumno?.Nombre</td>
+                <td>@item.Grado?.Nombre</td>
+                <td>
+                    @if (item.Seccion != null && item.Seccion.Any())
+                    {
+                        <ul>
+                            @foreach (var seccion in item.Seccion)
+                            {
+                                <li>@seccion</li> <!-- Mostrar cada sección como un elemento de lista -->
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span>No hay secciones</span> <!-- Mensaje si no hay secciones -->
+                    }
+                </td>
+                <td>
+                      <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-secondary">Editar</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Agregar Alumno a Grado</a>

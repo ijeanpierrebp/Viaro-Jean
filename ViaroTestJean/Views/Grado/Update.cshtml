@@ -1,0 +1,29 @@
+﻿@model Grado
+
+<div class="alert alert-secondary" role="alert">
+    <h2>Editando a @Model.Nombre</h2>
+</div>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+<form asp-action="Update">
+    <div class="form-group row">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="col-md-6">
+            <label asp-for="Nombre">Nombre</label>
+            <input type="text" class="form-control" asp-for="Nombre" />
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="ProfesorId">Profesor</label>
+            <select class="form-control" asp-for="ProfesorId" asp-items="@(ViewBag.Profesores)">
+            </select>
+        </div>
+    </div>
+
+    <br />
+    <div class="d-flex justify-content-end">
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+</form>
